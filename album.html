@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    div.gallery {
+      margin: 5px;
+      border: 1px solid #ccc;
+      float: left;
+      width: 180px;
+    }
+
+    div.gallery:hover {
+      border: 1px solid #777;
+    }
+
+    div.gallery img {
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
+
+    div.desc {
+      padding: 15px;
+      text-align: center;
+    }
+
+    /* Estilo para la vista ampliada */
+    #viewer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 1000;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    #viewer img {
+      max-width: 80%;
+      max-height: 80vh;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .controls button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Galería -->
+  <div class="gallery">
+    <img src="Cinque Terre.jpg" alt="Cinque Terre" onclick="openViewer(0)">
+    <div class="desc">Cinque Terre</div>
+  </div>
+
+  <div class="gallery">
+    <img src="Forest.jpg" alt="Forest" onclick="openViewer(1)">
+    <div class="desc">Forest</div>
+  </div>
+
+  <div class="gallery">
+    <img src="Northern-Lights.jpg" alt="Northern Lights" onclick="openViewer(2)">
+    <div class="desc">Northern Lights</div>
+  </div>
+
+  <div class="gallery">
+    <img src="Mountains.jpg" alt="Mountains" onclick="openViewer(3)">
+    <div class="desc">Mountains</div>
+  </div>
+
+  <!-- Vista Ampliada -->
+  <div id="viewer">
+    <img id="largeImage" src="">
+    <div class="controls">
+      <button onclick="prevImage()">Anterior</button>
+      <button onclick="nextImage()">Siguiente</button>
+      <button onclick="closeViewer()">Menú</button>
+    </div>
+  </div>
+
+  <script>
+    const images = [
+      { src: "Cinque Terre.jpg", alt: "Cinque Terre" },
+      { src: "Forest.jpg", alt: "Forest" },
+      { src: "Northern-Lights.jpg", alt: "Northern Lights" },
+      { src: "Mountains.jpg", alt: "Mountains" }
+    ];
+
+    let currentIndex = 0;
+
+    function openViewer(index) {
+      currentIndex = index;
+      const viewer = document.getElementById("viewer");
+      const largeImage = document.getElementById("largeImage");
+      largeImage.src = images[index].src;
+      largeImage.alt = images[index].alt;
+      viewer.style.display = "block";
+    }
+
+    function closeViewer() {
+      document.getElementById("viewer").style.display = "none";
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      openViewer(currentIndex);
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      openViewer(currentIndex);
+    }
+  </script>
+
+</body>
+</html>
