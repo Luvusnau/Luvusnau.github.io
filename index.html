@@ -15,42 +15,7 @@
       color: #333;
     }
 
-    .main-content {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      margin: 0 auto;
-      max-width: 800px;
-      background-color: white;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      margin-top: 50px;
-    }
-
-    h1 {
-      font-family: 'Pacifico', cursive;
-      color: #2c3e50;
-      font-size: 2.8em;
-      margin-bottom: 20px;
-    }
-
-    nav {
-      margin: 20px 0;
-    }
-
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      color: #e74c3c;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #2c3e50;
-    }
-
-    /* Estilos del login */
+    /* Login */
     .login-container {
       position: fixed;
       top: 0;
@@ -106,11 +71,81 @@
       font-size: 0.9em;
       margin-bottom: 10px;
     }
+
+    /* Main content */
+    .main-content {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 800px;
+      background-color: white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #2c3e50;
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    /* Menú sin JS */
+    #menu-toggle {
+      display: none;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      color: #2c3e50;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #e74c3c;
+      transition: left 0.3s ease;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+
+    .sidebar nav a {
+      display: block;
+      padding: 15px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .sidebar nav a:hover {
+      background-color: #c0392b;
+    }
+
+    /* Mostrar sidebar cuando el menú está activado */
+    #menu-toggle:checked ~ .sidebar {
+      left: 0;
+    }
+
+    /* Mostrar icono solo cuando se ve el contenido principal */
+    .main-content + .menu-icon {
+      display: block;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Formulario de Login -->
+  <!-- Login -->
   <div class="login-container" id="loginContainer">
     <div class="login-box">
       <h2>Iniciar Sesión</h2>
@@ -121,17 +156,25 @@
     </div>
   </div>
 
-  <!-- Contenido Principal -->
-  <div class="main-content" id="mainContent">
-    <h1>PAPIBARAS</h1>
-    <img src="logo.png" alt="Logo de Papibaras" style="max-width:600px; height:auto;"/>
+  <!-- Checkbox y sidebar (se activan sin JS) -->
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <aside class="sidebar">
     <nav>
       <a href="mision.html">Misión</a>
       <a href="vision.html">Visión</a>
       <a href="valores.html">Valores</a>
     </nav>
+  </aside>
+
+  <!-- Contenido principal -->
+  <div class="main-content" id="mainContent">
+    <h1>PAPIBARAS</h1>
+    <img src="logo.png" alt="Logo de Papibaras" style="max-width:600px; height:auto;" />
   </div>
 
+  <!-- Lógica mínima de JS para ocultar login -->
   <script>
     function login() {
       const username = document.getElementById("username").value.trim();
@@ -141,10 +184,12 @@
       if (username === "PAPIBARA" && password === "123456") {
         document.getElementById("loginContainer").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
+        document.querySelector(".menu-icon").style.display = "block";
       } else {
         errorMsg.textContent = "Usuario o contraseña incorrectos.";
       }
     }
   </script>
+
 </body>
 </html>
