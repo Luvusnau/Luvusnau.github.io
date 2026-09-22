@@ -1,0 +1,11 @@
+INVITACIÓN PIZARRÓN · ESTÁTICA V14
+
+Cambios aplicados:
+- Se eliminó el gris / sombra alrededor del pizarrón.
+- Se limpió el fondo para que se vea más claro, suave y bonito.
+- Se suavizó un poco la sombra del marco del pizarrón.
+
+Cómo usar:
+1. Descomprime el ZIP.
+2. Abre index.html.
+3. Mantén todos los archivos en la misma carpeta.
